@@ -64,7 +64,10 @@ def predict(image_path, model, topk=5):
     return top_p,top_classes
 
 
-
+def print_predictions(top_p,top_classes,cat_to_name):
+    
+    for i in range(len(top_classes)):
+        print(f'Prediction Category: {top_classes[i]} | Category Name: {cat_to_name[top_classes[i]]} | Prediction Probability: {top_p[i]} ')
 
 def main():
     
@@ -78,12 +81,7 @@ def main():
     with open(args.category_names, 'r') as f:
         cat_to_name = json.load(f)
     
-    
-    prediction_class_num = top_classes[0]
-    prediction_class = cat_to_name[prediction_class_num]
-    
-    print(f'Prediction Category: {prediction_class_num}')
-    print(f'Prediction Category Name: {prediction_class}')
+    print_predictions(top_p,top_classes,cat_to_name)
     
 if __name__ == '__main__':
     main()
